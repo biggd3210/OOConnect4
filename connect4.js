@@ -39,6 +39,7 @@ class Game {
   const top = document.createElement('tr');
   top.setAttribute('id', 'column-top');
   this.handleGameClick = this.handleClick.bind(this);
+  
   top.addEventListener('click', this.handleGameClick);
 
   for (let x = 0; x < this.WIDTH; x++) {
@@ -89,7 +90,8 @@ class Game {
 /** endGame: announce game end */
 
   endGame(msg) {
-    setTimeout(alert(msg),1000);
+    alert(msg);
+    const top = document.querySelector('#column-top');
     top.removeEventListener('click', this.handleGameClick);
   }
 

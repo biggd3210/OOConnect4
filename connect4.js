@@ -39,7 +39,7 @@ class Game {
   const top = document.createElement('tr');
   top.setAttribute('id', 'column-top');
   this.handleGameClick = this.handleClick.bind(this);
-  
+
   top.addEventListener('click', this.handleGameClick);
 
   for (let x = 0; x < this.WIDTH; x++) {
@@ -90,7 +90,8 @@ class Game {
 /** endGame: announce game end */
 
   endGame(msg) {
-    alert(msg);
+    setTimeout(function() {
+      alert(msg)}, 1000);
     const top = document.querySelector('#column-top');
     top.removeEventListener('click', this.handleGameClick);
   }
@@ -100,7 +101,7 @@ class Game {
   handleClick(evt) {
     // get x from ID of clicked cell
     const x = +evt.target.id;
-    console.log(this.currPlayer);
+
     // get next spot in column (if none, ignore click)
     const y = this.findSpotForCol(x);
     if (y === null) {
@@ -114,7 +115,7 @@ class Game {
     // check for win
     if (this.checkForWin()) {
       this.gameOver = true;
-      return this.endGame(`Player ${this.currPlayer} won!`);
+      return this.endGame(`The ${this.currPlayer.color} player won!`);
     }
     
     // check for tie
@@ -125,11 +126,6 @@ class Game {
     // switch players
     this.currPlayer = this.currPlayer === this.players[0] ? this.players[1] : this.players[0];
 
-    //console.log(this.currPlayer);
-    console.log(this.board[y][x]);
-    // this.start.addEventListener('click', function(e){
-    //   e.preventDefault;
-    // })
   }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
@@ -177,9 +173,9 @@ class Player {
   }
 }
 
-document.getElementById('start').addEventListener('click', () => {
-  let p1 = new Player(document.getElementById('p1color').value);
-  let p2 = new Player(document.getElementById('p2color').value);
-  new Game(p1,p2, 6, 7);
+document.getElementById('start').addEventListener('click', (e) => {
+  let p1 = new Player(document.getElementById('p1Color').value);
+  let p2 = new Player(document.getElementById('p2Color').value);
+  new Game(p1,p2);
 });
 
